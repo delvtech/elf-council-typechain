@@ -1,32 +1,38 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copied from https://github.com/element-fi/elf-contracts/blob/a6cb960896301b7562ced70a8b221f3cc964ea0a/contracts/libraries/ERC20Permit.sol
+
+// taken from our contracts repo
 
 pragma solidity ^0.8.0;
-
-import "../interfaces/IERC20Permit.sol";
 
 // This default erc20 library is designed for max efficiency and security.
 // WARNING: By default it does not include totalSupply which breaks the ERC20 standard
 //          to use a fully standard compliant ERC20 use 'ERC20PermitWithSupply"
-abstract contract ERC20Permit is IERC20Permit {
+contract MockERC20 {
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 value
+    );
+
     // --- ERC20 Data ---
     // The name of the erc20 token
     string public name;
     // The symbol of the erc20 token
-    string public override symbol;
+    string public symbol;
     // The decimals of the erc20 token, should default to 18 for new tokens
-    uint8 public override decimals;
+    uint8 public decimals;
 
     // A mapping which tracks user token balances
-    mapping(address => uint256) public override balanceOf;
+    mapping(address => uint256) public balanceOf;
     // A mapping which tracks which addresses a user allows to move their tokens
-    mapping(address => mapping(address => uint256)) public override allowance;
+    mapping(address => mapping(address => uint256)) public allowance;
     // A mapping which tracks the permit signature nonces for users
-    mapping(address => uint256) public override nonces;
+    mapping(address => uint256) public nonces;
 
     // --- EIP712 niceties ---
     // solhint-disable-next-line var-name-mixedcase
-    bytes32 public override DOMAIN_SEPARATOR;
+    bytes32 public DOMAIN_SEPARATOR;
     // bytes32 public constant PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
     bytes32 public constant PERMIT_TYPEHASH =
         0x6e71edae12b1b97f4d1f60370fef10105fa2faae0126114a169c64845d6126c9;
@@ -69,7 +75,7 @@ abstract contract ERC20Permit is IERC20Permit {
         );
     }
 
-    /// @notice An optional override function to execute and change state before immutable assignment
+    /// @notice An optional  function to execute and change state before immutable assignment
     function _extraConstruction() internal virtual {}
 
     // --- Token ---
@@ -81,7 +87,6 @@ abstract contract ERC20Permit is IERC20Permit {
     function transfer(address recipient, uint256 amount)
         public
         virtual
-        override
         returns (bool)
     {
         // We forward this call to 'transferFrom'
@@ -98,7 +103,7 @@ abstract contract ERC20Permit is IERC20Permit {
         address spender,
         address recipient,
         uint256 amount
-    ) public virtual override returns (bool) {
+    ) public virtual returns (bool) {
         // Load balance and allowance
         uint256 balance = balanceOf[spender];
         require(balance >= amount, "ERC20: insufficient-balance");
@@ -133,7 +138,7 @@ abstract contract ERC20Permit is IERC20Permit {
     /// @param amount the amount of token which they will receive
     /// @dev This function is virtual so that it can be overridden, if you
     ///      are reviewing this contract for security you should ensure to
-    ///      check for overrides
+    ///      check for s
     function _mint(address account, uint256 amount) internal virtual {
         // Add tokens to the account
         balanceOf[account] = balanceOf[account] + amount;
@@ -147,7 +152,7 @@ abstract contract ERC20Permit is IERC20Permit {
     /// @param amount  the amount of tokens to remove
     /// @dev This function is virtual so that it can be overridden, if you
     ///      are reviewing this contract for security you should ensure to
-    ///      check for overrides
+    ///      check for s
     function _burn(address account, uint256 amount) internal virtual {
         // Reduce the balance of the account
         balanceOf[account] = balanceOf[account] - amount;
@@ -163,7 +168,6 @@ abstract contract ERC20Permit is IERC20Permit {
     function approve(address account, uint256 amount)
         public
         virtual
-        override
         returns (bool)
     {
         // Set the senders allowance for account to amount
@@ -193,7 +197,7 @@ abstract contract ERC20Permit is IERC20Permit {
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) external override {
+    ) external {
         // The EIP 712 digest for this function
         bytes32 digest =
             keccak256(
@@ -240,5 +244,17 @@ abstract contract ERC20Permit is IERC20Permit {
     function _setupDecimals(uint8 decimals_) internal {
         // Set the decimals
         decimals = decimals_;
+    }
+
+    function setBalance(address who, uint256 amount) external {
+        balanceOf[who] = amount;
+    }
+
+    function setAllowance(
+        address source,
+        address spender,
+        uint256 amount
+    ) external {
+        allowance[source][spender] = amount;
     }
 }
