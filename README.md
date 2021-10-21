@@ -1,11 +1,11 @@
-# elf-contracts-typechain
-Typechain codegen for generating Typescript classes and types for elf-contracts
+# elf-council-typechain
+Typechain codegen for generating Typescript classes and types for elf-council
 
 ## Install
 Run 
 
 ```
-npm install git+https://github.com/element-fi/elf-contracts-typechain.git
+npm install git+https://github.com/element-fi/elf-council-typechain.git
 ```
 
 ## Here, take this!
@@ -13,6 +13,6 @@ Since this repo is not an npm package, it can be helpful to include this simple 
 
 ```
   "scripts": {
-    "update-elf-contracts-typechain": "npm install git+https://github.com/element-fi/elf-contracts-typechain.git"
+    "update-elf-council-typechain": "npm install git+https://github.com/element-fi/elf-council-typechain.git"
   },
 ```
