@@ -10,7 +10,7 @@ var _abi = [
         inputs: [
             {
                 internalType: "address",
-                name: "",
+                name: "vault",
                 type: "address",
             },
         ],

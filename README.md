@@ -16,3 +16,20 @@ Since this repo is not an npm package, it can be helpful to include this simple 
     "update-elf-council-typechain": "npm install git+https://github.com/element-fi/elf-council-typechain.git"
   },
 ```
+
+## Development
+
+Run
+
+```
+npm ci
+```
+
+## Updating to the latest contracts
+
+Run
+
+```
+npm run load-contracts
+npm run build
+```

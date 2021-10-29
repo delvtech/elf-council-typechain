@@ -17,10 +17,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.CoreVoting__factory>;
     getContractFactory(
-      name: "Airdrop",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Airdrop__factory>;
-    getContractFactory(
       name: "OptimisticGrants",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.OptimisticGrants__factory>;
@@ -121,13 +117,13 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TestTreasury__factory>;
     getContractFactory(
-      name: "SimpleProxy",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.SimpleProxy__factory>;
-    getContractFactory(
       name: "TestVestingVault",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TestVestingVault__factory>;
+    getContractFactory(
+      name: "SimpleProxy",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SimpleProxy__factory>;
     getContractFactory(
       name: "GSCVault",
       signerOrOptions?: ethers.Signer | FactoryOptions

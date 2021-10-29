@@ -206,10 +206,12 @@ interface CoreVotingInterface extends ethers.utils.Interface {
   events: {
     "ProposalCreated(uint256,uint256,uint256,uint256)": EventFragment;
     "ProposalExecuted(uint256)": EventFragment;
+    "Voted(address,uint256,tuple)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "ProposalCreated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ProposalExecuted"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Voted"): EventFragment;
 }
 
 export class CoreVoting extends BaseContract {
@@ -608,6 +610,26 @@ export class CoreVoting extends BaseContract {
     ProposalExecuted(
       proposalId?: null
     ): TypedEventFilter<[BigNumber], { proposalId: BigNumber }>;
+
+    Voted(
+      voter?: string | null,
+      proposalId?: BigNumberish | null,
+      vote?: null
+    ): TypedEventFilter<
+      [
+        string,
+        BigNumber,
+        [BigNumber, number] & { votingPower: BigNumber; castBallot: number }
+      ],
+      {
+        voter: string;
+        proposalId: BigNumber;
+        vote: [BigNumber, number] & {
+          votingPower: BigNumber;
+          castBallot: number;
+        };
+      }
+    >;
   };
 
   estimateGas: {
