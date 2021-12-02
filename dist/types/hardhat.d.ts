@@ -140,6 +140,10 @@ declare module "hardhat/types/runtime" {
       name: "VestingVault",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.VestingVault__factory>;
+    getContractFactory(
+      name: "Airdrop",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Airdrop__factory>;
 
     // default types
     getContractFactory(

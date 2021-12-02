@@ -45,6 +45,7 @@ interface CoreVotingInterface extends ethers.utils.Interface {
     "setMinProposalPower(uint256)": FunctionFragment;
     "setOwner(address)": FunctionFragment;
     "vote(address[],bytes[],uint256,uint8)": FunctionFragment;
+    "votes(address,uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -135,6 +136,10 @@ interface CoreVotingInterface extends ethers.utils.Interface {
     functionFragment: "vote",
     values: [string[], BytesLike[], BigNumberish, BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "votes",
+    values: [string, BigNumberish]
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "DAY_IN_BLOCKS",
@@ -202,6 +207,7 @@ interface CoreVotingInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "setOwner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "vote", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "votes", data: BytesLike): Result;
 
   events: {
     "ProposalCreated(uint256,uint256,uint256,uint256)": EventFragment;
@@ -370,6 +376,14 @@ export class CoreVoting extends BaseContract {
       ballot: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    votes(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, number] & { votingPower: BigNumber; castBallot: number }
+    >;
   };
 
   DAY_IN_BLOCKS(overrides?: CallOverrides): Promise<BigNumber>;
@@ -485,6 +499,14 @@ export class CoreVoting extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  votes(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, number] & { votingPower: BigNumber; castBallot: number }
+  >;
+
   callStatic: {
     DAY_IN_BLOCKS(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -589,6 +611,14 @@ export class CoreVoting extends BaseContract {
       ballot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    votes(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, number] & { votingPower: BigNumber; castBallot: number }
+    >;
   };
 
   filters: {
@@ -736,6 +766,12 @@ export class CoreVoting extends BaseContract {
       ballot: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    votes(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -850,6 +886,12 @@ export class CoreVoting extends BaseContract {
       proposalId: BigNumberish,
       ballot: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    votes(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }
