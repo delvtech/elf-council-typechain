@@ -37,6 +37,7 @@ interface VestingVaultInterface extends ethers.utils.Interface {
     "staleBlockLag()": FunctionFragment;
     "timelock()": FunctionFragment;
     "token()": FunctionFragment;
+    "unvestedMultiplier()": FunctionFragment;
     "updateVotingPower(address)": FunctionFragment;
     "withdraw(uint256,address)": FunctionFragment;
   };
@@ -86,6 +87,10 @@ interface VestingVaultInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "timelock", values?: undefined): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "unvestedMultiplier",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "updateVotingPower",
     values: [string]
   ): string;
@@ -131,6 +136,10 @@ interface VestingVaultInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "timelock", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "unvestedMultiplier",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "updateVotingPower",
     data: BytesLike
@@ -284,6 +293,8 @@ export class VestingVault extends BaseContract {
 
     token(overrides?: CallOverrides): Promise<[string]>;
 
+    unvestedMultiplier(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     updateVotingPower(
       _who: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -390,6 +401,8 @@ export class VestingVault extends BaseContract {
 
   token(overrides?: CallOverrides): Promise<string>;
 
+  unvestedMultiplier(overrides?: CallOverrides): Promise<BigNumber>;
+
   updateVotingPower(
     _who: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -478,6 +491,8 @@ export class VestingVault extends BaseContract {
     timelock(overrides?: CallOverrides): Promise<string>;
 
     token(overrides?: CallOverrides): Promise<string>;
+
+    unvestedMultiplier(overrides?: CallOverrides): Promise<BigNumber>;
 
     updateVotingPower(_who: string, overrides?: CallOverrides): Promise<void>;
 
@@ -573,6 +588,8 @@ export class VestingVault extends BaseContract {
 
     token(overrides?: CallOverrides): Promise<BigNumber>;
 
+    unvestedMultiplier(overrides?: CallOverrides): Promise<BigNumber>;
+
     updateVotingPower(
       _who: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -661,6 +678,10 @@ export class VestingVault extends BaseContract {
     timelock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     token(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    unvestedMultiplier(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     updateVotingPower(
       _who: string,

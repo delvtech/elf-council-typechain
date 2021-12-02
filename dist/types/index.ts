@@ -33,6 +33,7 @@ export type { GSCVault } from "./GSCVault";
 export type { LockingVault } from "./LockingVault";
 export type { OptimisticRewards } from "./OptimisticRewards";
 export type { VestingVault } from "./VestingVault";
+export type { Airdrop } from "./Airdrop";
 
 export { CoreVoting__factory } from "./factories/CoreVoting__factory";
 export { OptimisticGrants__factory } from "./factories/OptimisticGrants__factory";
@@ -66,3 +67,4 @@ export { GSCVault__factory } from "./factories/GSCVault__factory";
 export { LockingVault__factory } from "./factories/LockingVault__factory";
 export { OptimisticRewards__factory } from "./factories/OptimisticRewards__factory";
 export { VestingVault__factory } from "./factories/VestingVault__factory";
+export { Airdrop__factory } from "./factories/Airdrop__factory";
