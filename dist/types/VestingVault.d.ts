@@ -21,6 +21,7 @@ import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
 interface VestingVaultInterface extends ethers.utils.Interface {
   functions: {
+    "acceptGrant()": FunctionFragment;
     "addGrantAndDelegate(address,uint128,uint128,uint128,uint128,address)": FunctionFragment;
     "changeUnvestedMultiplier(uint256)": FunctionFragment;
     "claim()": FunctionFragment;
@@ -42,6 +43,10 @@ interface VestingVaultInterface extends ethers.utils.Interface {
     "withdraw(uint256,address)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "acceptGrant",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "addGrantAndDelegate",
     values: [
@@ -99,6 +104,10 @@ interface VestingVaultInterface extends ethers.utils.Interface {
     values: [BigNumberish, string]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "acceptGrant",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "addGrantAndDelegate",
     data: BytesLike
@@ -197,6 +206,10 @@ export class VestingVault extends BaseContract {
   interface: VestingVaultInterface;
 
   functions: {
+    acceptGrant(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     addGrantAndDelegate(
       _who: string,
       _amount: BigNumberish,
@@ -238,7 +251,8 @@ export class VestingVault extends BaseContract {
           BigNumber,
           BigNumber,
           BigNumber,
-          string
+          string,
+          [BigNumber, BigNumber]
         ] & {
           allocation: BigNumber;
           withdrawn: BigNumber;
@@ -247,6 +261,7 @@ export class VestingVault extends BaseContract {
           cliff: BigNumber;
           latestVotingPower: BigNumber;
           delegatee: string;
+          range: [BigNumber, BigNumber];
         }
       ]
     >;
@@ -307,6 +322,10 @@ export class VestingVault extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
+  acceptGrant(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   addGrantAndDelegate(
     _who: string,
     _amount: BigNumberish,
@@ -347,7 +366,8 @@ export class VestingVault extends BaseContract {
       BigNumber,
       BigNumber,
       BigNumber,
-      string
+      string,
+      [BigNumber, BigNumber]
     ] & {
       allocation: BigNumber;
       withdrawn: BigNumber;
@@ -356,6 +376,7 @@ export class VestingVault extends BaseContract {
       cliff: BigNumber;
       latestVotingPower: BigNumber;
       delegatee: string;
+      range: [BigNumber, BigNumber];
     }
   >;
 
@@ -415,6 +436,8 @@ export class VestingVault extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    acceptGrant(overrides?: CallOverrides): Promise<void>;
+
     addGrantAndDelegate(
       _who: string,
       _amount: BigNumberish,
@@ -447,7 +470,8 @@ export class VestingVault extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
-        string
+        string,
+        [BigNumber, BigNumber]
       ] & {
         allocation: BigNumber;
         withdrawn: BigNumber;
@@ -456,6 +480,7 @@ export class VestingVault extends BaseContract {
         cliff: BigNumber;
         latestVotingPower: BigNumber;
         delegatee: string;
+        range: [BigNumber, BigNumber];
       }
     >;
 
@@ -515,6 +540,10 @@ export class VestingVault extends BaseContract {
   };
 
   estimateGas: {
+    acceptGrant(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     addGrantAndDelegate(
       _who: string,
       _amount: BigNumberish,
@@ -603,6 +632,10 @@ export class VestingVault extends BaseContract {
   };
 
   populateTransaction: {
+    acceptGrant(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     addGrantAndDelegate(
       _who: string,
       _amount: BigNumberish,
