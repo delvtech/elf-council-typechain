@@ -34,6 +34,7 @@ interface TestCoreVotingInterface extends ethers.utils.Interface {
     "extraVoteTime()": FunctionFragment;
     "getCustomQuorum(address,bytes4)": FunctionFragment;
     "getProposalData(uint256)": FunctionFragment;
+    "getProposalVotingPower(uint256)": FunctionFragment;
     "getVaultStatus(address)": FunctionFragment;
     "isAuthorized(address)": FunctionFragment;
     "lockDuration()": FunctionFragment;
@@ -94,6 +95,10 @@ interface TestCoreVotingInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getProposalData",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getProposalVotingPower",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -201,6 +206,10 @@ interface TestCoreVotingInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getProposalData",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getProposalVotingPower",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -365,6 +374,11 @@ export class TestCoreVoting extends BaseContract {
       ]
     >;
 
+    getProposalVotingPower(
+      proposalId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     getVaultStatus(
       _vault: string,
       overrides?: CallOverrides
@@ -512,6 +526,11 @@ export class TestCoreVoting extends BaseContract {
     [string, BigNumber, BigNumber, BigNumber, [BigNumber, BigNumber, BigNumber]]
   >;
 
+  getProposalVotingPower(
+    proposalId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   getVaultStatus(_vault: string, overrides?: CallOverrides): Promise<boolean>;
 
   isAuthorized(who: string, overrides?: CallOverrides): Promise<boolean>;
@@ -655,6 +674,11 @@ export class TestCoreVoting extends BaseContract {
         [BigNumber, BigNumber, BigNumber]
       ]
     >;
+
+    getProposalVotingPower(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber, BigNumber]>;
 
     getVaultStatus(_vault: string, overrides?: CallOverrides): Promise<boolean>;
 
@@ -837,6 +861,11 @@ export class TestCoreVoting extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getProposalVotingPower(
+      proposalId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     getVaultStatus(
       _vault: string,
       overrides?: CallOverrides
@@ -976,6 +1005,11 @@ export class TestCoreVoting extends BaseContract {
     getProposalData(
       _proposalID: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getProposalVotingPower(
+      proposalId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getVaultStatus(
