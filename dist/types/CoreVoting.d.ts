@@ -31,6 +31,7 @@ interface CoreVotingInterface extends ethers.utils.Interface {
     "deauthorize(address)": FunctionFragment;
     "execute(uint256,address[],bytes[])": FunctionFragment;
     "extraVoteTime()": FunctionFragment;
+    "getProposalVotingPower(uint256)": FunctionFragment;
     "isAuthorized(address)": FunctionFragment;
     "lockDuration()": FunctionFragment;
     "minProposalPower()": FunctionFragment;
@@ -78,6 +79,10 @@ interface CoreVotingInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "extraVoteTime",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getProposalVotingPower",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "isAuthorized",
@@ -167,6 +172,10 @@ interface CoreVotingInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "execute", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "extraVoteTime",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getProposalVotingPower",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -302,6 +311,11 @@ export class CoreVoting extends BaseContract {
 
     extraVoteTime(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    getProposalVotingPower(
+      proposalId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     isAuthorized(who: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     lockDuration(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -424,6 +438,11 @@ export class CoreVoting extends BaseContract {
 
   extraVoteTime(overrides?: CallOverrides): Promise<BigNumber>;
 
+  getProposalVotingPower(
+    proposalId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   isAuthorized(who: string, overrides?: CallOverrides): Promise<boolean>;
 
   lockDuration(overrides?: CallOverrides): Promise<BigNumber>;
@@ -539,6 +558,11 @@ export class CoreVoting extends BaseContract {
     ): Promise<void>;
 
     extraVoteTime(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getProposalVotingPower(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber, BigNumber]>;
 
     isAuthorized(who: string, overrides?: CallOverrides): Promise<boolean>;
 
@@ -701,6 +725,11 @@ export class CoreVoting extends BaseContract {
 
     extraVoteTime(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getProposalVotingPower(
+      proposalId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     isAuthorized(who: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     lockDuration(overrides?: CallOverrides): Promise<BigNumber>;
@@ -818,6 +847,11 @@ export class CoreVoting extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     extraVoteTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getProposalVotingPower(
+      proposalId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     isAuthorized(
       who: string,
