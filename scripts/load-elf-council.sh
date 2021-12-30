@@ -4,7 +4,7 @@ rm -rf elf-council
 echo "Downloading contracts..."
 # link/clone and build contracts
 if [ ! -z "$1" ] && [ $1="local" ]; then
-    ln -sf ../../elf-contracts .
+    ln -sf ../council .
 else
     git clone git@github.com:element-fi/council.git elf-council
 fi
@@ -20,6 +20,6 @@ mkdir src/contracts
 # elf-contracts before I can sync up.
 
 echo "Copying latest contracts..."
-cp -R elf-council/contracts src
+cp -R council/contracts src
 
 echo "Done!"
