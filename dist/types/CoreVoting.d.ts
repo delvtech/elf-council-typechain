@@ -313,8 +313,8 @@ export class CoreVoting extends BaseContract {
 
     getProposalVotingPower(
       proposalId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+      overrides?: CallOverrides
+    ): Promise<[[BigNumber, BigNumber, BigNumber]]>;
 
     isAuthorized(who: string, overrides?: CallOverrides): Promise<[boolean]>;
 
@@ -440,8 +440,8 @@ export class CoreVoting extends BaseContract {
 
   getProposalVotingPower(
     proposalId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+    overrides?: CallOverrides
+  ): Promise<[BigNumber, BigNumber, BigNumber]>;
 
   isAuthorized(who: string, overrides?: CallOverrides): Promise<boolean>;
 
@@ -727,7 +727,7 @@ export class CoreVoting extends BaseContract {
 
     getProposalVotingPower(
       proposalId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     isAuthorized(who: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -850,7 +850,7 @@ export class CoreVoting extends BaseContract {
 
     getProposalVotingPower(
       proposalId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     isAuthorized(
