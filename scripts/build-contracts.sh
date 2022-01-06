@@ -14,8 +14,6 @@ mkdir -p dist/types
 
 # Copy over contract definitions.
 cp -R types/* dist/types
-cp -R src/localTypes/* dist/types
 
 # Copy over compiled factory definitions.
 cp -R compiled/types/* dist/types/
-cp -R compiled/src/localTypes/factories/* dist/types/factories

@@ -20,6 +20,6 @@ mkdir src/contracts
 # elf-contracts before I can sync up.
 
 echo "Copying latest contracts..."
-cp -R council/contracts src
+cp -R elf-council/contracts src
 
 echo "Done!"

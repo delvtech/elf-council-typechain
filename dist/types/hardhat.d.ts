@@ -13,6 +13,10 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
+      name: "Ownable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Ownable__factory>;
+    getContractFactory(
       name: "CoreVoting",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.CoreVoting__factory>;
@@ -144,6 +148,18 @@ declare module "hardhat/types/runtime" {
       name: "Airdrop",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Airdrop__factory>;
+    getContractFactory(
+      name: "IERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20__factory>;
+    getContractFactory(
+      name: "IPlonkVerifier",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IPlonkVerifier__factory>;
+    getContractFactory(
+      name: "PrivateAirdrop",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.PrivateAirdrop__factory>;
 
     // default types
     getContractFactory(
