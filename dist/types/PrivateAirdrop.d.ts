@@ -23,13 +23,14 @@ interface PrivateAirdropInterface extends ethers.utils.Interface {
   functions: {
     "airdropToken()": FunctionFragment;
     "amountPerRedemption()": FunctionFragment;
-    "collectAirdrop(bytes,bytes32)": FunctionFragment;
+    "claimAirdropAndDelegate(bytes,bytes32,address)": FunctionFragment;
     "nullifierSpent(bytes32)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "root()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "updateRoot(bytes32)": FunctionFragment;
+    "vault()": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -41,8 +42,8 @@ interface PrivateAirdropInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "collectAirdrop",
-    values: [BytesLike, BytesLike]
+    functionFragment: "claimAirdropAndDelegate",
+    values: [BytesLike, BytesLike, string]
   ): string;
   encodeFunctionData(
     functionFragment: "nullifierSpent",
@@ -62,6 +63,7 @@ interface PrivateAirdropInterface extends ethers.utils.Interface {
     functionFragment: "updateRoot",
     values: [BytesLike]
   ): string;
+  encodeFunctionData(functionFragment: "vault", values?: undefined): string;
 
   decodeFunctionResult(
     functionFragment: "airdropToken",
@@ -72,7 +74,7 @@ interface PrivateAirdropInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "collectAirdrop",
+    functionFragment: "claimAirdropAndDelegate",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -90,6 +92,7 @@ interface PrivateAirdropInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "updateRoot", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "vault", data: BytesLike): Result;
 
   events: {
     "OwnershipTransferred(address,address)": EventFragment;
@@ -146,9 +149,10 @@ export class PrivateAirdrop extends BaseContract {
 
     amountPerRedemption(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    collectAirdrop(
+    claimAirdropAndDelegate(
       proof: BytesLike,
       nullifierHash: BytesLike,
+      delegate: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -174,15 +178,18 @@ export class PrivateAirdrop extends BaseContract {
       newRoot: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    vault(overrides?: CallOverrides): Promise<[string]>;
   };
 
   airdropToken(overrides?: CallOverrides): Promise<string>;
 
   amountPerRedemption(overrides?: CallOverrides): Promise<BigNumber>;
 
-  collectAirdrop(
+  claimAirdropAndDelegate(
     proof: BytesLike,
     nullifierHash: BytesLike,
+    delegate: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -206,14 +213,17 @@ export class PrivateAirdrop extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  vault(overrides?: CallOverrides): Promise<string>;
+
   callStatic: {
     airdropToken(overrides?: CallOverrides): Promise<string>;
 
     amountPerRedemption(overrides?: CallOverrides): Promise<BigNumber>;
 
-    collectAirdrop(
+    claimAirdropAndDelegate(
       proof: BytesLike,
       nullifierHash: BytesLike,
+      delegate: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -234,6 +244,8 @@ export class PrivateAirdrop extends BaseContract {
     ): Promise<void>;
 
     updateRoot(newRoot: BytesLike, overrides?: CallOverrides): Promise<void>;
+
+    vault(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {
@@ -251,9 +263,10 @@ export class PrivateAirdrop extends BaseContract {
 
     amountPerRedemption(overrides?: CallOverrides): Promise<BigNumber>;
 
-    collectAirdrop(
+    claimAirdropAndDelegate(
       proof: BytesLike,
       nullifierHash: BytesLike,
+      delegate: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -279,6 +292,8 @@ export class PrivateAirdrop extends BaseContract {
       newRoot: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    vault(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -288,9 +303,10 @@ export class PrivateAirdrop extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    collectAirdrop(
+    claimAirdropAndDelegate(
       proof: BytesLike,
       nullifierHash: BytesLike,
+      delegate: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -316,5 +332,7 @@ export class PrivateAirdrop extends BaseContract {
       newRoot: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    vault(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

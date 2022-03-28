@@ -17,6 +17,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Ownable__factory>;
     getContractFactory(
+      name: "IERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20__factory>;
+    getContractFactory(
       name: "CoreVoting",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.CoreVoting__factory>;
@@ -149,9 +153,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Airdrop__factory>;
     getContractFactory(
-      name: "IERC20",
+      name: "ILockingVault",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC20__factory>;
+    ): Promise<Contracts.ILockingVault__factory>;
     getContractFactory(
       name: "IPlonkVerifier",
       signerOrOptions?: ethers.Signer | FactoryOptions
