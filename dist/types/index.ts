@@ -2,13 +2,13 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Ownable } from "./Ownable";
+export type { IERC20 } from "./IERC20";
 export type { CoreVoting } from "./CoreVoting";
 export type { OptimisticGrants } from "./OptimisticGrants";
 export type { Spender } from "./Spender";
 export type { Timelock } from "./Timelock";
 export type { Treasury } from "./Treasury";
 export type { ICoreVoting } from "./ICoreVoting";
-export type { IERC20 } from "./IERC20";
 export type { IERC20Permit } from "./IERC20Permit";
 export type { ILockingVault } from "./ILockingVault";
 export type { IVotingVault } from "./IVotingVault";
@@ -39,13 +39,13 @@ export type { IPlonkVerifier } from "./IPlonkVerifier";
 export type { PrivateAirdrop } from "./PrivateAirdrop";
 
 export { Ownable__factory } from "./factories/Ownable__factory";
+export { IERC20__factory } from "./factories/IERC20__factory";
 export { CoreVoting__factory } from "./factories/CoreVoting__factory";
 export { OptimisticGrants__factory } from "./factories/OptimisticGrants__factory";
 export { Spender__factory } from "./factories/Spender__factory";
 export { Timelock__factory } from "./factories/Timelock__factory";
 export { Treasury__factory } from "./factories/Treasury__factory";
 export { ICoreVoting__factory } from "./factories/ICoreVoting__factory";
-export { IERC20__factory } from "./factories/IERC20__factory";
 export { IERC20Permit__factory } from "./factories/IERC20Permit__factory";
 export { ILockingVault__factory } from "./factories/ILockingVault__factory";
 export { IVotingVault__factory } from "./factories/IVotingVault__factory";
